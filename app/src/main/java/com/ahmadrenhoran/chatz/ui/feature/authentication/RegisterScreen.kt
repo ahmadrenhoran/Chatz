@@ -20,7 +20,3 @@ fun RegisterScreen(modifier: Modifier) {
     }
 }
 
-@Composable
-fun FormTextField(hint: String) {
-
-}
