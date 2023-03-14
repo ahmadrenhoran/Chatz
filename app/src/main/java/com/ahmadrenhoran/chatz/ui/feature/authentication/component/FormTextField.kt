@@ -4,8 +4,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AlternateEmail
 import androidx.compose.runtime.Composable
@@ -32,8 +33,8 @@ fun FormTextField(
         modifier = modifier.fillMaxWidth(),
         value = textValue,
         onValueChange = onValueChange,
-        label = { Text(label) },
-        placeholder = { Text(hint) },
+        label = { Text(label, style = MaterialTheme.typography.bodyLarge) },
+        placeholder = { Text(hint, style = MaterialTheme.typography.bodyLarge) },
         leadingIcon = leadingIcon,
         trailingIcon = trailingIcon,
         keyboardOptions = keyboardOptions,

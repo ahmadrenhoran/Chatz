@@ -6,8 +6,8 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -47,7 +47,7 @@ fun SplashScreen(onAnimationEnd: () -> Unit) {
     val isDarkTheme = isSystemInDarkTheme()
     val lottieLogo =
         if (isDarkTheme) LottieCompositionSpec.RawRes(R.raw.chat_green)
-        else LottieCompositionSpec.RawRes(R.raw.chat_icon)
+        else LottieCompositionSpec.RawRes(R.raw.chat_green_light)
     val composition by rememberLottieComposition(lottieLogo)
 
 
@@ -55,7 +55,7 @@ fun SplashScreen(onAnimationEnd: () -> Unit) {
     Column(
         Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colors.background),
+            .background(MaterialTheme.colorScheme.background),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -67,7 +67,7 @@ fun SplashScreen(onAnimationEnd: () -> Unit) {
         Text(
             text = stringResource(id = R.string.app_name),
             fontSize = 36.sp,
-            style = MaterialTheme.typography.h3,
+            style = MaterialTheme.typography.displaySmall,
             modifier = Modifier.alpha(opacity.value)
         )
 

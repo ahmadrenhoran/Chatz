@@ -1,6 +1,6 @@
 package com.ahmadrenhoran.chatz.ui.theme
 
-import androidx.compose.material.Typography
+import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -15,21 +15,20 @@ val Cabin = FontFamily(
 )
 
 val Typography = Typography(
-    defaultFontFamily = Cabin,
-    h1 = TextStyle(
+    displayLarge = TextStyle(
         fontWeight = FontWeight.Normal,
         fontSize = 30.sp
     ),
-    h2 = TextStyle(
+    displayMedium = TextStyle(
         fontWeight = FontWeight.Bold,
         fontSize = 20.sp
     ),
-    h3 = TextStyle(
+    displaySmall = TextStyle(
         fontWeight = FontWeight.Bold,
         fontSize = 20.sp
     ),
 
-    body1 = TextStyle(
+    bodyLarge = TextStyle(
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp
     )
