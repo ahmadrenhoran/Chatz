@@ -45,9 +45,10 @@ fun SplashScreen(onAnimationEnd: () -> Unit) {
         onAnimationEnd()
     }
     val isDarkTheme = isSystemInDarkTheme()
+    //tes je
     val lottieLogo =
-        if (isDarkTheme) LottieCompositionSpec.RawRes(R.raw.chat_green)
-        else LottieCompositionSpec.RawRes(R.raw.chat_green_light)
+        if (isDarkTheme) LottieCompositionSpec.RawRes(R.raw.chat_green_light)
+        else LottieCompositionSpec.RawRes(R.raw.final_logo)
     val composition by rememberLottieComposition(lottieLogo)
 
 

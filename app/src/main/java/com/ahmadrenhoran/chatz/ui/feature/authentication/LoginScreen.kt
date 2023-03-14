@@ -1,23 +1,24 @@
 package com.ahmadrenhoran.chatz.ui.feature.authentication
 
+import android.view.Display.Mode
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material.icons.outlined.AlternateEmail
 import androidx.compose.material.icons.outlined.Lock
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -44,9 +45,12 @@ fun LoginScreen(
     val focusManager = LocalFocusManager.current
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.social_interaction))
     Column(
-        modifier = Modifier.padding(24.dp),
-
+        modifier = Modifier
+            .padding(24.dp)
+            .fillMaxWidth()
+            .fillMaxHeight(),
         horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
         LottieAnimation(
             composition, modifier = Modifier
@@ -54,7 +58,7 @@ fun LoginScreen(
                 .height(260.dp), iterations = LottieConstants.IterateForever
         )
         Text(
-            text = "Login",
+            text = stringResource(R.string.login),
             modifier = Modifier.fillMaxWidth(),
             style = MaterialTheme.typography.displayLarge, fontWeight = FontWeight.Bold
         )
@@ -62,10 +66,10 @@ fun LoginScreen(
         FormTextField(
             textValue = authUiState.email,
             onValueChange = onEmailValueChange,
-            label = "Email",
-            hint = "Enter Email",
+            label = stringResource(R.string.email),
+            hint = stringResource(R.string.enter_email),
             modifier = Modifier,
-            leadingIcon = { Icon(Icons.Outlined.AlternateEmail, contentDescription = "Email") },
+            leadingIcon = { Icon(Icons.Outlined.AlternateEmail, contentDescription = stringResource(R.string.email),) },
             trailingIcon = { },
             keyboardOptions = KeyboardOptions.Default.copy(
                 keyboardType = KeyboardType.Email,
@@ -82,16 +86,19 @@ fun LoginScreen(
         FormTextField(
             textValue = authUiState.password,
             onValueChange = onPasswordValueChange,
-            label = "Password",
-            hint = "Enter Password",
+            label = stringResource(R.string.password),
+            hint = stringResource(R.string.enter_password),
             modifier = Modifier,
-            leadingIcon = { Icon(Icons.Outlined.Lock, contentDescription = "Password") },
+            leadingIcon = {
+                Icon(Icons.Outlined.Lock, contentDescription = stringResource(R.string.password),)
+                          },
             trailingIcon = {
                 val passwordVisibility = authUiState.passwordVisibility
                 IconButton(onClick = onButtonPasswordVisibility) {
                     Icon(
                         imageVector = if (passwordVisibility) Icons.Filled.VisibilityOff else Icons.Filled.Visibility,
-                        contentDescription = if (passwordVisibility) "Hide password" else "Show password"
+                        contentDescription = if (passwordVisibility) stringResource(R.string.hide_password) else stringResource(
+                                                    R.string.show_password)
                     )
                 }
             },
@@ -106,6 +113,34 @@ fun LoginScreen(
             ),
             visualTransformation = if (authUiState.passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
         )
+        Spacer(modifier = Modifier.height(24.dp))
+        FormButton(modifier = Modifier, stringResource(id = R.string.login))
+    }
+}
+
+@Composable
+fun FormButton(modifier: Modifier, buttonText: String) {
+    Button(
+        onClick = { /* action */ },
+        modifier = modifier
+            .fillMaxWidth()
+            .height(56.dp),
+        shape = MaterialTheme.shapes.medium,
+        content = {
+            Text(
+                text = buttonText,
+                style = MaterialTheme.typography.displaySmall
+            )
+        }
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun FormButtonPreview() {
+
+    ChatzTheme {
+
     }
 }
 
