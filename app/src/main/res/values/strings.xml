@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Chatz</string>
     <string name="login">Login</string>
-    <string name="register">register</string>
+    <string name="register">Register</string>
     <string name="splash">splash</string>
     <string name="title_activity_auth">AuthActivity</string>
     <string name="title_activity_main">MainActivity</string>
@@ -11,4 +11,6 @@
     <string name="enter_password">Enter Password</string>
     <string name="hide_password">Hide password</string>
     <string name="show_password">Show password</string>
+    <string name="name">Name</string>
+    <string name="enter_your_name">Enter your name</string>
 </resources>

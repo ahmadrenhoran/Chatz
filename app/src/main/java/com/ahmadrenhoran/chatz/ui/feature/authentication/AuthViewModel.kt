@@ -11,6 +11,18 @@ class AuthViewModel : ViewModel() {
     private val _uiState = MutableStateFlow(LoginRegisterUiState())
     val uiState: StateFlow<LoginRegisterUiState> = _uiState.asStateFlow()
 
+
+    fun setName(name: String) {
+        val loginRegisterUiState = _uiState.value
+        updateUiState(
+            LoginRegisterUiState(
+                name = name,
+                email = loginRegisterUiState.email,
+                passwordVisibility = loginRegisterUiState.passwordVisibility,
+                password = loginRegisterUiState.password,
+            )
+        )
+    }
     fun setEmail(email: String) {
         val loginRegisterUiState = _uiState.value
         updateUiState(

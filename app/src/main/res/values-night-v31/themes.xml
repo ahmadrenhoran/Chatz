@@ -4,5 +4,9 @@
     <style name="Theme.Chatz" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:statusBarColor">@color/background_dark</item>
         <item name="android:navigationBarColor">@color/background_dark</item>
+
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/transparent_image</item>
+        <item name="android:windowSplashScreenBackground">@color/background_dark</item>
+        <item name="android:windowSplashScreenAnimationDuration">0</item>
     </style>
 </resources>

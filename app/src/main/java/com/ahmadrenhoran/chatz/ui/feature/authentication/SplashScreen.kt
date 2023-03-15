@@ -32,6 +32,7 @@ fun SplashScreen(onAnimationEnd: () -> Unit) {
     // Buat Animatable untuk mengatur opacity dari splash screen
     val opacity = remember { Animatable(0f) }
 
+
     // Animasikan opacity dari 0 menjadi 1
     LaunchedEffect(Unit) {
         opacity.animateTo(

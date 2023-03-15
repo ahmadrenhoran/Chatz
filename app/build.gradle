@@ -65,11 +65,14 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-tooling"
 
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.0'
+    implementation 'androidx.core:core-splashscreen:1.0.0'
 
     // Firebase
     implementation 'com.google.firebase:firebase-auth-ktx:21.1.0'
 
     // Lottie
     implementation 'com.airbnb.android:lottie-compose:6.0.0'
+    implementation 'com.airbnb.android:lottie:6.0.0'
+
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
 }

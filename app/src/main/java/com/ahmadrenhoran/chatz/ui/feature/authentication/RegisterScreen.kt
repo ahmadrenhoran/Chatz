@@ -10,6 +10,7 @@ import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material.icons.outlined.AlternateEmail
 import androidx.compose.material.icons.outlined.Lock
+import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -27,7 +28,9 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.ahmadrenhoran.chatz.R
+import com.ahmadrenhoran.chatz.ui.feature.authentication.component.FormButton
 import com.ahmadrenhoran.chatz.ui.feature.authentication.component.FormTextField
+import com.ahmadrenhoran.chatz.ui.feature.authentication.component.FormTextNav
 import com.ahmadrenhoran.chatz.ui.theme.ChatzTheme
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
@@ -38,9 +41,12 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 @Composable
 fun RegisterScreen(
     authUiState: LoginRegisterUiState,
+    onNameChange: (String) -> Unit,
     onEmailValueChange: (String) -> Unit,
     onPasswordValueChange: (String) -> Unit,
-    onButtonPasswordVisibility: () -> Unit
+    onButtonPasswordVisibility: () -> Unit,
+    onRegisterButton: () -> Unit,
+    onClickableTextLogin: (Int) -> Unit
 ) {
     val focusManager = LocalFocusManager.current
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.social_interaction))
@@ -63,6 +69,26 @@ fun RegisterScreen(
             style = MaterialTheme.typography.displayLarge, fontWeight = FontWeight.Bold
         )
         Spacer(modifier = Modifier.height(16.dp))
+        FormTextField(
+            textValue = authUiState.name,
+            onValueChange = onNameChange,
+            label = stringResource(R.string.name),
+            hint = stringResource(R.string.enter_your_name),
+            modifier = Modifier,
+            leadingIcon = { Icon(Icons.Outlined.Person, contentDescription = stringResource(R.string.name),) },
+            trailingIcon = { },
+            keyboardOptions = KeyboardOptions.Default.copy(
+                keyboardType = KeyboardType.Text,
+                imeAction = ImeAction.Next
+            ),
+            keyboardActions = KeyboardActions(
+                onNext = {
+                    focusManager.moveFocus(FocusDirection.Down)
+                }
+            ),
+            visualTransformation = VisualTransformation.None
+        )
+        Spacer(modifier = Modifier.height(8.dp))
         FormTextField(
             textValue = authUiState.email,
             onValueChange = onEmailValueChange,
@@ -114,7 +140,13 @@ fun RegisterScreen(
             visualTransformation = if (authUiState.passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
         )
         Spacer(modifier = Modifier.height(24.dp))
-        FormButton(modifier = Modifier, stringResource(id = R.string.register))
+        FormButton(modifier = Modifier, stringResource(id = R.string.register), onRegisterButton)
+        FormTextNav(modifier = Modifier
+            .fillMaxHeight()
+            .wrapContentHeight(Alignment.Bottom),
+            firstText = "Already have an account? ",
+            secondText = "Login",
+            onClick = onClickableTextLogin)
     }
 }
 
