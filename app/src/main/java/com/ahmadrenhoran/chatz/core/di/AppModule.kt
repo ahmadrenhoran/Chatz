@@ -9,6 +9,8 @@ import com.ahmadrenhoran.chatz.core.domain.usecase.auth.SignUpWithEmail
 import com.ahmadrenhoran.chatz.ui.feature.authentication.AuthViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import org.koin.androidx.compose.get
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -17,11 +19,15 @@ import org.koin.dsl.module
 
 val AppModule = module {
     single {
-        FirebaseAuth.getInstance()
+        Firebase.auth
+    }
+
+    single {
+        Firebase.firestore
     }
 
     single<AuthRepository> {
-        AuthRepositoryImpl(get())
+        AuthRepositoryImpl(get(), get())
     }
 
     viewModel {

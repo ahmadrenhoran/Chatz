@@ -5,31 +5,56 @@ import com.ahmadrenhoran.chatz.core.domain.model.Response
 import com.ahmadrenhoran.chatz.core.domain.model.User
 import com.ahmadrenhoran.chatz.core.domain.repository.AuthRepository
 import com.ahmadrenhoran.chatz.core.domain.repository.SignInWithEmailResponse
+import com.ahmadrenhoran.chatz.core.domain.repository.SignUpWithEmailResponse
+import com.ahmadrenhoran.chatz.core.utils.Constants.CREATED_AT
+import com.ahmadrenhoran.chatz.core.utils.Constants.DISPLAY_NAME
+import com.ahmadrenhoran.chatz.core.utils.Constants.EMAIL
+import com.ahmadrenhoran.chatz.core.utils.Constants.PHOTO_URL
+import com.ahmadrenhoran.chatz.core.utils.Constants.USERS
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthException
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.userProfileChangeRequest
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 
-class AuthRepositoryImpl (private val auth: FirebaseAuth): AuthRepository {
+class AuthRepositoryImpl(private val auth: FirebaseAuth, private val db: FirebaseFirestore) :
+    AuthRepository {
     override suspend fun firebaseSignInWithEmail(
-        user: User
+        email: String,
+        password: String
     ): SignInWithEmailResponse {
         return try {
-            auth.signInWithEmailAndPassword(user.email, user.password).await()
-            Log.d(TAG, "firebaseSignInWithEmail: berhasil")
+            auth.signInWithEmailAndPassword(email, password).await()
             Response.Success(true)
-        } catch (e: Exception) {
-            Log.d(TAG, "firebaseSignInWithEmail: $e")
+        } catch (e: FirebaseAuthException) {
             Response.Error(e)
         }
     }
 
     override suspend fun firebaseSignUpWithEmail(
-        user: User
-    ): SignInWithEmailResponse {
+        name: String,
+        email: String,
+        password: String
+    ): SignUpWithEmailResponse {
         return try {
-            auth.createUserWithEmailAndPassword(user.email, user.password).await()
+            auth.createUserWithEmailAndPassword(email, password).await()
+            val profileUpdates = userProfileChangeRequest {
+                displayName = name
+            }
+            auth.currentUser?.updateProfile(profileUpdates)?.await()
+            addUserToFirestore()
             Response.Success(true)
-        } catch (e: Exception) {
+        } catch (e: FirebaseAuthException) {
             Response.Error(e)
+        }
+    }
+
+    private suspend fun addUserToFirestore() {
+        auth.currentUser?.apply {
+            val user = toUser()
+            db.collection(USERS).document(uid).set(user).await()
         }
     }
 
@@ -37,3 +62,10 @@ class AuthRepositoryImpl (private val auth: FirebaseAuth): AuthRepository {
         const val TAG = "AuthRepositoryImplLog"
     }
 }
+
+fun FirebaseUser.toUser() = mapOf(
+    DISPLAY_NAME to displayName,
+    EMAIL to email,
+    PHOTO_URL to photoUrl?.toString(),
+    CREATED_AT to FieldValue.serverTimestamp()
+)

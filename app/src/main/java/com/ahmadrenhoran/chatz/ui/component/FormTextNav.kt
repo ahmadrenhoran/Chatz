@@ -1,4 +1,4 @@
-package com.ahmadrenhoran.chatz.ui.feature.authentication.component
+package com.ahmadrenhoran.chatz.ui.component
 
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.MaterialTheme

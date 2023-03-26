@@ -1,4 +1,4 @@
-package com.ahmadrenhoran.chatz.ui.feature.authentication.component
+package com.ahmadrenhoran.chatz.ui.component
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.ahmadrenhoran.chatz.ui.theme.ChatzTheme
 
 @Composable
-fun FormButton(modifier: Modifier, buttonText: String, onClick: () -> Unit) {
+fun FormButton(modifier: Modifier, buttonText: String, enable: Boolean = true, onClick: () -> Unit) {
     Button(
         onClick = onClick,
         modifier = modifier
@@ -25,6 +25,8 @@ fun FormButton(modifier: Modifier, buttonText: String, onClick: () -> Unit) {
                 style = MaterialTheme.typography.displaySmall
             )
         }
+        ,
+        enabled = enable
     )
 }
 

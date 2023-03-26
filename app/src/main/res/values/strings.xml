@@ -13,4 +13,8 @@
     <string name="show_password">Show password</string>
     <string name="name">Name</string>
     <string name="enter_your_name">Enter your name</string>
+    <string name="close">CLOSE</string>
+    <string name="chats">Chats</string>
+    <string name="profile">Profile</string>
+    <string name="Setting">Setting</string>
 </resources>

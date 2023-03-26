@@ -1,4 +1,4 @@
-package com.ahmadrenhoran.chatz.ui.feature.authentication.component
+package com.ahmadrenhoran.chatz.ui.component
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardActions
@@ -27,12 +27,20 @@ fun FormTextField(
     trailingIcon: @Composable () -> Unit,
     keyboardOptions: KeyboardOptions,
     keyboardActions: KeyboardActions,
-    visualTransformation: VisualTransformation
+    visualTransformation: VisualTransformation,
+    isError: Boolean = false,
+    supportingText: String = ""
 ) {
     OutlinedTextField(
         modifier = modifier.fillMaxWidth(),
         value = textValue,
         onValueChange = onValueChange,
+        isError = isError,
+        supportingText = {
+            if (isError) {
+                Text(text = supportingText)
+            }
+        },
         label = { Text(label, style = MaterialTheme.typography.bodyLarge) },
         placeholder = { Text(hint, style = MaterialTheme.typography.bodyLarge) },
         leadingIcon = leadingIcon,

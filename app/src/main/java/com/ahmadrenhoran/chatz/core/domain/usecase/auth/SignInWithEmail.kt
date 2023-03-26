@@ -5,6 +5,6 @@ import com.ahmadrenhoran.chatz.core.domain.repository.AuthRepository
 
 class SignInWithEmail(private val repository: AuthRepository) {
 
-    suspend operator fun invoke(user: User)  = repository.firebaseSignInWithEmail(user)
+    suspend operator fun invoke(email: String, password: String)  = repository.firebaseSignInWithEmail(email, password)
 
 }
